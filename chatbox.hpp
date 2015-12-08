@@ -12,8 +12,10 @@ namespace lum {
 		std::vector<std::string> m_chats;
 		std::string m_message;
 		
-		sf::RectangleShape m_draw;
+		sf::RectangleShape m_boxdraw;
+		sf::Text m_messagedraw;
 		
+	
 	public:
 		std::stack<std::string> tosend;
 		

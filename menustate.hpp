@@ -3,11 +3,13 @@
 #include <iostream>
 #include <cmath>
 #include "gamestate.hpp"
+#include "chatbox.hpp"
 
 namespace lum {
 	class MenuState : public lum::GameState {
 	private:
 		sf::RectangleShape m_drawtest;
+		ChatBox chatbox;
 		float timer;
 		float sine;
 		

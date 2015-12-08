@@ -2,7 +2,8 @@
 
 namespace lum {
 	MenuState::MenuState(Engine& engine) :
-		GameState(engine)
+		GameState(engine),
+		chatbox(engine)
 	{
 		m_drawtest.setFillColor(sf::Color::Red);
 		m_drawtest.setPosition(100, 100);
@@ -20,18 +21,20 @@ namespace lum {
 	
 	void MenuState::init()
 	{
-		engine->resmgr.loadResource("debugfont", "assets/debugfont.ttf");
 	}
 	
 	void MenuState::update(float dt, thor::ActionMap<std::string>& emap)
 	{
 		timer += dt;
 		m_drawtest.setPosition(100+sin(0.3*timer)*100, 100);
+		
+		chatbox.update(dt);
 	}
 	
 	void MenuState::render(sf::RenderWindow& window)
 	{
 		window.draw(m_drawtest);
+		chatbox.render(window);
 	}
 	
 }

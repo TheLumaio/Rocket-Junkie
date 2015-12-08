@@ -24,6 +24,15 @@ namespace lum {
 			
 		});
 		
+		resource_t font = m_engine->resmgr.getResource("opensans");
+		//std::cout << font.type().name() << " : " << typeid(sf::Font).name() << std::endl;
+		if (font.type() == typeid(sf::Font)) {
+			m_messagedraw.setFont(boost::get<sf::Font&>(font));
+		}
+		//m_messagedraw.setFont();
+		m_messagedraw.setPosition(20, 540-50);
+		m_messagedraw.setCharacterSize(12);
+		
 	}
 	ChatBox::ChatBox() {}
 	ChatBox::~ChatBox() {}
@@ -35,12 +44,12 @@ namespace lum {
 	
 	void ChatBox::update(float dt)
 	{
-		
+		m_messagedraw.setString(m_message);
 	}
 	
 	void ChatBox::render(sf::RenderWindow& window)
 	{
-		
+		window.draw(m_messagedraw);
 	}
 	
 }

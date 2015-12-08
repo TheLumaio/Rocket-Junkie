@@ -6,7 +6,7 @@ namespace lum {
 	
 	void ResourceManager::loadResource(std::string id, std::string path)
 	{
-		if (m_res.find(id) != m_res.end())
+		if (m_ref.find(id) != m_ref.end())
 			std::cout << "Resource with ID \"" << id << "\" exists, Aborting." << std::endl;
 		
 		// get file type
@@ -20,13 +20,15 @@ namespace lum {
 			case TEXTURE:
 				std::cout << "TEXTURE FILE" << std::endl;
 				t.loadFromFile(path);
-				m_res[id] = f;
+				m_textures.emplace_back(t);
+				m_ref[id] = ref_t(m_textures.size()-1, TEXTURE);
 				break;
 				
 			case FONT:
 				std::cout << "FONT FILE" << std::endl;
 				f.loadFromFile(path);
-				m_res[id] = t;
+				m_fonts.emplace_back(f);
+				m_ref[id] = ref_t(m_fonts.size()-1, FONT);
 				break;
 				
 			case SOUND: // TODO
@@ -42,11 +44,21 @@ namespace lum {
 		}
 	}
 	
-	boost::any ResourceManager::getResource(std::string id)
+	resource_t ResourceManager::getResource(std::string id)
 	{
-		if (m_res.find(id) != m_res.end())
-			return m_res[id];
-		return nullptr;
+		if (m_ref.find(id) != m_ref.end())
+		{
+			switch(m_ref[id].type)
+			{
+				case TEXTURE:
+					return m_textures[m_ref[id].index];
+					break;
+				case FONT:
+					return m_fonts[m_ref[id].index];
+					break;
+			}
+		}
+		//return nullptr;
 	}
 	
   file_t ResourceManager::getFileExtension(std::string file)

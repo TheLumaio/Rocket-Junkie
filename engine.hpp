@@ -11,7 +11,7 @@
 
 namespace lum {
 	class GameState;
-	friend class Engine {
+	class Engine {
 	private:
 		sf::RenderWindow m_window;
 		thor::ActionMap<std::string> m_emap;
