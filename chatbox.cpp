@@ -19,17 +19,17 @@ namespace lum {
 			}
 			
 			if (u == 8) { // backspace
-				m_message.pop_back();
+				std::cout << "backspace" << std::endl;
+				m_message = m_message.erase(m_message.size() - 1);
 			}
 			
 		});
 		
+		
 		resource_t font = m_engine->resmgr.getResource("opensans");
-		//std::cout << font.type().name() << " : " << typeid(sf::Font).name() << std::endl;
 		if (font.type() == typeid(sf::Font)) {
 			m_messagedraw.setFont(boost::get<sf::Font&>(font));
 		}
-		//m_messagedraw.setFont();
 		m_messagedraw.setPosition(20, 540-50);
 		m_messagedraw.setCharacterSize(12);
 		

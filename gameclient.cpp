@@ -16,12 +16,16 @@ namespace lum {
 	{
 		m_serverip = ip;
 		m_serverport = port;
+		
+		send("connect");
+		
 		m_thread.launch();
 	}
 	
 	void GameClient::stop()
 	{
 		m_thread.terminate();
+		send("disconnect");
 	}
 	
 	void GameClient::update()
