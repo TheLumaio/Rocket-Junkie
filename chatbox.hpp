@@ -15,6 +15,7 @@ namespace lum {
 		sf::RectangleShape m_boxdraw;
 		sf::Text m_messagedraw;
 		
+		void changeRectangle(sf::Color, float, float, float, float, bool, sf::RenderWindow&);
 	
 	public:
 		std::stack<std::string> tosend;

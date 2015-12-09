@@ -29,6 +29,8 @@ namespace lum {
 		m_drawtest.setPosition(100+sin(0.3*timer)*100, 100);
 		
 		chatbox.update(dt);
+		
+		
 	}
 	
 	void MenuState::render(sf::RenderWindow& window)

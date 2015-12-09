@@ -56,9 +56,18 @@ namespace lum {
 				case FONT:
 					return m_fonts[m_ref[id].index];
 					break;
+				case SOUND:
+					return nullptr;
+					break;
+				case UNKNOWN:
+					return nullptr;
+					break;
+				default:
+					return nullptr;
+					break;
 			}
 		}
-		//return nullptr;
+		return nullptr;
 	}
 	
   file_t ResourceManager::getFileExtension(std::string file)
