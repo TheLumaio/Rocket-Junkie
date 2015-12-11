@@ -8,6 +8,5 @@
 #include <clocale>
 #include <cmath>
 #include <csetjmp>
-#include "gameserver.hpp"
-#include "gamestate.hpp"
-#include "resourcemanager.hpp"
+#include <SFML/Graphics.hpp>
+#include <Thor/Input.hpp>

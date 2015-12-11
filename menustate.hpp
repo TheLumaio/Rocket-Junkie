@@ -9,9 +9,12 @@ namespace lum {
 	class MenuState : public lum::GameState {
 	private:
 		sf::RectangleShape m_drawtest;
-		ChatBox chatbox;
-		float timer;
-		float sine;
+		ChatBox m_chatbox;
+		float m_timer;
+		float m_sine;
+		
+		GameServer m_server;
+		GameClient m_client;
 		
 	public:
 		MenuState(Engine& engine);

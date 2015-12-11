@@ -3,7 +3,7 @@
 namespace lum {
 	GameState::GameState(lum::Engine& engine)
 	{
-		this->engine = &engine;
+		this->m_engine = &engine;
 	}
 	
 	GameState::GameState() {}

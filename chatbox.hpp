@@ -14,8 +14,13 @@ namespace lum {
 		
 		sf::RectangleShape m_boxdraw;
 		sf::Text m_messagedraw;
+		sf::Text m_chatdraw;
+		
+		bool m_enabled;
+		float m_alpha;
 		
 		void changeRectangle(sf::Color, float, float, float, float, bool, sf::RenderWindow&);
+		void changeText(std::string, float, float, sf::RenderWindow&);
 	
 	public:
 		std::stack<std::string> tosend;
@@ -27,5 +32,9 @@ namespace lum {
 		void addChat(std::string);
 		void update(float);
 		void render(sf::RenderWindow&);
+		
+		void toggle();
+		void setEnabled(bool);
+		bool isEnabled();
 	};
 }

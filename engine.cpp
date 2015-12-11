@@ -7,6 +7,7 @@ namespace lum {
 		m_emap["close"] = thor::Action(sf::Event::Closed);
 		
 		resmgr.loadResource("opensans", "assets/OpenSans.ttf");
+		resmgr.loadResource("anonymous", "assets/anonymouspro.ttf");
 	}
 	
 	Engine::~Engine()
@@ -16,9 +17,6 @@ namespace lum {
 	void Engine::start()
 	{
 		
-		m_server.start();
-		m_client.start("localhost", 27015);
-		
 		sf::Clock deltaClock;
 		
 		while (m_window.isOpen())
@@ -27,12 +25,7 @@ namespace lum {
 			
 			m_emap.update(m_window);
 			if (m_emap.isActive("close"))
-			{
 				m_window.close();
-				
-				m_client.stop();
-				m_server.stop();
-			}
 				
 			float dt = deltaClock.restart().asSeconds();
 			

@@ -3,13 +3,28 @@
 namespace lum {
 	MenuState::MenuState(Engine& engine) :
 		GameState(engine),
-		chatbox(engine)
+		m_chatbox(engine)
 	{
 		m_drawtest.setFillColor(sf::Color::Red);
 		m_drawtest.setPosition(100, 100);
 		m_drawtest.setSize(sf::Vector2f(100, 10));
-		timer = 0;
-		sine = 0;
+		m_timer = 0;
+		m_sine = 0;
+
+		engine.getemap()["enterchat"] = thor::Action(sf::Keyboard::Return, thor::Action::PressOnce);
+		engine.getemap()["exitchat"] = thor::Action(sf::Keyboard::Escape, thor::Action::PressOnce);
+
+		engine.getsystem().connect("enterchat", [&](thor::ActionContext<std::string> context) {
+			if (m_chatbox.isEnabled())
+				return;
+			m_chatbox.setEnabled(true);
+		});
+
+		engine.getsystem().connect("exitchat", [&](thor::ActionContext<std::string> context) {
+			if (m_chatbox.isEnabled())
+				m_chatbox.setEnabled(false);
+		});
+
 	}
 	
 	MenuState::MenuState()
@@ -21,22 +36,37 @@ namespace lum {
 	
 	void MenuState::init()
 	{
+		m_server.start();
+		m_client.start("localhost", 27015);
 	}
 	
 	void MenuState::update(float dt, thor::ActionMap<std::string>& emap)
 	{
-		timer += dt;
-		m_drawtest.setPosition(100+sin(0.3*timer)*100, 100);
+		m_timer += dt;
+		m_drawtest.setPosition(100+sin(0.3*m_timer)*100, 100);
 		
-		chatbox.update(dt);
+		m_chatbox.update(dt);
 		
-		
+		if (!m_chatbox.tosend.empty())
+		{
+			std::string packet = "message ";
+			packet.append(m_chatbox.tosend.top());
+			m_client.send(packet);
+			m_chatbox.tosend.pop();
+		}
+
+		if (!m_client.messages.empty())
+		{
+			m_chatbox.addChat(m_client.messages.top());
+			m_client.messages.pop();
+		}
+
 	}
 	
 	void MenuState::render(sf::RenderWindow& window)
 	{
 		window.draw(m_drawtest);
-		chatbox.render(window);
+		m_chatbox.render(window);
 	}
 	
 }

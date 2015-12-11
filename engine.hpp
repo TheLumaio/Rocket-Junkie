@@ -18,9 +18,6 @@ namespace lum {
 		thor::ActionMap<std::string>::CallbackSystem m_sys;
 		std::stack<lum::GameState*> m_states;
 		
-		GameServer m_server;
-		GameClient m_client;
-		
 		void printHello(thor::ActionContext<std::string> context);
 		
 	public:

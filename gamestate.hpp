@@ -8,7 +8,7 @@ namespace lum {
 	class Engine;
 	class GameState {
 	protected:
-		lum::Engine* engine;
+		lum::Engine* m_engine;
 	
 	public:
 		GameState(Engine&);
