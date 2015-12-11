@@ -22,6 +22,7 @@ namespace lum {
 		~MenuState();
 		
 		void init();
+		void leave();
 		void update(float, thor::ActionMap<std::string>&);
 		void render(sf::RenderWindow&);
 		

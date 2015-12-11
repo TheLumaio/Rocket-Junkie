@@ -16,6 +16,7 @@ namespace lum {
 		~GameState();
 		
 		virtual void init();
+		virtual void leave();
 		virtual void update(float, thor::ActionMap<std::string>&);
 		virtual void render(sf::RenderWindow&);
 		

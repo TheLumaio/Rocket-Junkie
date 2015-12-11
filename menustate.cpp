@@ -39,6 +39,12 @@ namespace lum {
 		m_server.start();
 		m_client.start("localhost", 27015);
 	}
+
+	void MenuState::leave()
+	{
+		m_client.stop();
+		m_server.stop();
+	}
 	
 	void MenuState::update(float dt, thor::ActionMap<std::string>& emap)
 	{
