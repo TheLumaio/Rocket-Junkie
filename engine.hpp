@@ -10,6 +10,8 @@
 #include "gameclient.hpp"
 
 namespace lum {
+	typedef thor::ActionContext<std::string> context_t;
+
 	class GameState;
 	class Engine {
 	private:

@@ -12,6 +12,8 @@ namespace lum {
 		ChatBox m_chatbox;
 		float m_timer;
 		float m_sine;
+
+		sf::Text m_debugtext;
 		
 		GameServer m_server;
 		GameClient m_client;

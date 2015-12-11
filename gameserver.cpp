@@ -46,7 +46,7 @@ namespace lum {
 				{
 					std::string message = "message ";
 					message += "<";
-					message += std::to_string(getclientid(sender));
+					message += std::to_string(getclientid(sender, port));
 					message += "> ";
 					for (int i = 1; i < m_tokens.size(); i++) { message.append(m_tokens[i]); message.append(" "); }
 					std::cout << "SERVER: " << message << std::endl;
@@ -89,12 +89,12 @@ namespace lum {
 		return strs;
 	}
 
-	int GameServer::getclientid(sf::IpAddress ip)
+	int GameServer::getclientid(sf::IpAddress ip, unsigned short port)
 	{
 		int index = -1;
 		for (int i = 0; i < m_clients.size(); i++)
 		{
-			if (m_clients[i].ip == ip)
+			if (m_clients[i].ip == ip && m_clients[i].port == port)
 				index = i;
 		}
 

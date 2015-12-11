@@ -32,7 +32,7 @@ namespace lum {
 		void update();
 		void removeclient(sf::IpAddress);
 		std::vector<std::string> tokenizepacket(std::string);
-		int getclientid(sf::IpAddress);
+		int getclientid(sf::IpAddress, unsigned short);
 		
 	public:
 		GameServer();

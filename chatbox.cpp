@@ -9,7 +9,7 @@ namespace lum {
 		m_alpha = 1;
 		
 		m_engine->getemap()["type"] = thor::Action(sf::Event::TextEntered);
-		m_engine->getsystem().connect("type", [&](thor::ActionContext<std::string> context){
+		m_engine->getsystem().connect("type", [&](context_t context){
 			if (!m_enabled)
 				return;
 			
