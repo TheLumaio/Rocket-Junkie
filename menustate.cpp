@@ -4,7 +4,10 @@ namespace lum {
 	MenuState::MenuState(Engine& engine) :
 		GameState(engine),
 		m_chatbox(engine)
-	{ }
+	{
+		serverip = "localhost";
+		serverport = 27015;
+	}
 	
 	MenuState::MenuState()
 	{
@@ -21,16 +24,24 @@ namespace lum {
 		m_timer = 0;
 		m_sine = 0;
 
-		m_debugtext.setFont(boost::get<sf::Font&>(m_engine->resmgr.getResource("opensans")));
-		m_debugtext.setString("1. server, 2. client\n\nCurrently started:\n");
+		m_debugtext.setFont(boost::get<sf::Font&>(m_engine->resmgr.getResource("anonymous")));
+		m_debugtext.setString("1. server, 2. client\nuse /setclient <ip> <port>\n\nCurrently started:\n");
 		m_debugtext.setPosition(10, 10);
 		m_debugtext.setCharacterSize(14);
 
 		m_engine->getemap()["selectserver"] = thor::Action(sf::Keyboard::Num1, thor::Action::PressOnce);
 		m_engine->getemap()["selectclient"] = thor::Action(sf::Keyboard::Num2, thor::Action::PressOnce);
 
-		m_engine->getsystem().connect("selectserver", [&](context_t context){ m_server.start(); m_debugtext.setString(m_debugtext.getString() + "SERVER\n"); });
-		m_engine->getsystem().connect("selectclient", [&](context_t context){ m_client.start("localhost", 27015); m_debugtext.setString(m_debugtext.getString() + "CLIENT\n"); });
+		m_engine->getsystem().connect("selectserver", [&](context_t context){
+			if (m_chatbox.isEnabled()) return;
+			m_server.start();
+			m_debugtext.setString(m_debugtext.getString() + "SERVER\n");
+		});
+		m_engine->getsystem().connect("selectclient", [&](context_t context){
+			if (m_chatbox.isEnabled()) return;
+			m_client.start(serverip, serverport);
+			m_debugtext.setString(m_debugtext.getString() + "CLIENT\n");
+		});
 
 		m_engine->getemap()["enterchat"] = thor::Action(sf::Keyboard::Return, thor::Action::PressOnce);
 		m_engine->getemap()["exitchat"] = thor::Action(sf::Keyboard::Escape, thor::Action::PressOnce);

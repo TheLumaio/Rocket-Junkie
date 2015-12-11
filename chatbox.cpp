@@ -22,6 +22,19 @@ namespace lum {
 			
 			if (u == 13) { // enter key
 				if (!m_enabled || m_message.size() < 1) return;
+				if (m_message.at(0) == '/')
+				{
+					m_message.erase(m_message.begin());
+					std::vector<std::string> tokens = tokenizecommand(m_message);
+					if (tokens[0] == "setclient" && tokens.size() >= 3)
+					{
+						serverip = tokens[1];
+						serverport = (unsigned short) std::strtoul(tokens[2].c_str(), NULL, 0);
+						addChat("CLUP: " + tokens[1] + ":" + tokens[2]);
+						m_message = "";
+						return;
+					}
+				}
 				tosend.push(m_message);
 				m_message = "";
 			}
@@ -144,6 +157,21 @@ namespace lum {
 		m_chatdraw.setString(text);
 		m_chatdraw.setPosition(x, y);
 		window.draw(m_chatdraw);
+	}
+
+	std::vector<std::string> ChatBox::tokenizecommand(std::string packet)
+	{
+		std::transform(packet.begin(), packet.end(), packet.begin(), ::tolower);
+		
+		boost::char_separator<char> sep(" ");
+		boost::tokenizer<boost::char_separator<char>> tokens(packet, sep);
+		
+		std::vector<std::string> strs;
+		
+		for (const auto& t: tokens)
+			strs.emplace_back(t);
+
+		return strs;
 	}
 	
 }

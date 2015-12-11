@@ -3,7 +3,9 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+#include <boost/tokenizer.hpp>
 #include "engine.hpp"
+#include "server.hpp"
 
 namespace lum {
 	class ChatBox {
@@ -21,6 +23,7 @@ namespace lum {
 		
 		void changeRectangle(sf::Color, float, float, float, float, bool, sf::RenderWindow&);
 		void changeText(std::string, float, float, sf::RenderWindow&);
+		std::vector<std::string> tokenizecommand(std::string);
 	
 	public:
 		std::stack<std::string> tosend;

@@ -4,6 +4,7 @@
 #include <cmath>
 #include "gamestate.hpp"
 #include "chatbox.hpp"
+#include "server.hpp"
 
 namespace lum {
 	class MenuState : public lum::GameState {

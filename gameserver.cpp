@@ -95,7 +95,7 @@ namespace lum {
 		for (int i = 0; i < m_clients.size(); i++)
 		{
 			if (m_clients[i].ip == ip && m_clients[i].port == port)
-				index = i;
+				index = m_clients[i].id;
 		}
 
 		return index;

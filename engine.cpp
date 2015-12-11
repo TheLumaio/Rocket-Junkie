@@ -1,5 +1,8 @@
 #include "engine.hpp"
 
+std::string serverip;
+unsigned short serverport;
+
 namespace lum {
 	Engine::Engine() :
 		m_window(sf::VideoMode(1280, 720), "Rocket Junkie", sf::Style::Close)
@@ -12,6 +15,8 @@ namespace lum {
 	
 	Engine::~Engine()
 	{
+		if (!m_states.empty())
+			m_states.top()->leave();
 	}
 	
 	void Engine::start()
