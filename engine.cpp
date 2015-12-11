@@ -46,6 +46,7 @@ namespace lum {
 	{
 		if (!m_states.empty())
 		{
+			m_states.top()->leave();
 			m_states.top() = nullptr;
 			m_states.pop();
 		}
