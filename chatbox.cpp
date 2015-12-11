@@ -15,7 +15,7 @@ namespace lum {
 			
 			int u = context.event->text.unicode;
 			
-			if (u > 31 && u < 127) { // any character that's not "enter"
+			if (u > 31 && u < 127) { // ascii text characters
 				if (!m_enabled) return;
 				m_message += (char)u;
 			}
