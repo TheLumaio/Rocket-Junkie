@@ -99,22 +99,22 @@ namespace lum {
 		m_chatdraw.setColor(sf::Color(0, 0, 0, m_alpha*255));
 
 		// draw bounding boxes
-		changeRectangle(sf::Color(100, 100, 100, m_alpha*255), 10, 720-160, 300, 150, false, window);
-		changeRectangle(sf::Color(75, 75, 75, m_alpha*255), 10, 720-30, 300, 20, false, window);
-		changeRectangle(sf::Color(255, 255, 255, m_alpha*255), 10, 720-160, 300, 150, true, window);
-		changeRectangle(sf::Color(255, 255, 255, m_alpha*255), 10, 720-30, 300, 20, true, window);
+		drawrectangle(sf::Color(100, 100, 100, m_alpha*255), 10, 720-160, 300, 150, false, window);
+		drawrectangle(sf::Color(75, 75, 75, m_alpha*255), 10, 720-30, 300, 20, false, window);
+		drawrectangle(sf::Color(255, 255, 255, m_alpha*255), 10, 720-160, 300, 150, true, window);
+		drawrectangle(sf::Color(255, 255, 255, m_alpha*255), 10, 720-30, 300, 20, true, window);
 		// draw current text
-		changeText(m_message, 12, 720-28, window);
+		drawtext(m_message, 12, 720-28, window);
 
 		float width = m_messagedraw.findCharacterPos(m_message.size()-1).x - m_messagedraw.findCharacterPos(0).x;
 		// draw cursor
-		changeRectangle(sf::Color::Black, 12+width+(width/m_message.size()), 720-28, 1, 15, false, window);
+		drawrectangle(sf::Color::Black, 12+width+(width/m_message.size()), 720-28, 1, 15, false, window);
 		
 		// draw previous messages
 		for (int i = 0; i < 10; i++)
 		{
 			std::string text = m_chats[m_chats.size()-(i+1)];
-			changeText(text, 12, (720-50)-i*12, window);
+			drawtext(text, 12, (720-50)-i*12, window);
 		}
 	}
 	
@@ -133,7 +133,7 @@ namespace lum {
 		return m_enabled;
 	}
 	
-	void ChatBox::changeRectangle(sf::Color c, float x, float y, float w, float h, bool outline, sf::RenderWindow& window)
+	void ChatBox::drawrectangle(sf::Color c, float x, float y, float w, float h, bool outline, sf::RenderWindow& window)
 	{
 		m_boxdraw.setPosition(x, y);
 		m_boxdraw.setSize(sf::Vector2f(w, h));
@@ -152,7 +152,7 @@ namespace lum {
 		window.draw(m_boxdraw);
 	}
 	
-	void ChatBox::changeText(std::string text, float x, float y, sf::RenderWindow& window)
+	void ChatBox::drawtext(std::string text, float x, float y, sf::RenderWindow& window)
 	{
 		m_chatdraw.setString(text);
 		m_chatdraw.setPosition(x, y);

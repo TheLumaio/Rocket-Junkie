@@ -21,8 +21,8 @@ namespace lum {
 		bool m_enabled;
 		float m_alpha;
 		
-		void changeRectangle(sf::Color, float, float, float, float, bool, sf::RenderWindow&);
-		void changeText(std::string, float, float, sf::RenderWindow&);
+		void drawrectangle(sf::Color, float, float, float, float, bool, sf::RenderWindow&);
+		void drawtext(std::string, float, float, sf::RenderWindow&);
 		std::vector<std::string> tokenizecommand(std::string);
 	
 	public:

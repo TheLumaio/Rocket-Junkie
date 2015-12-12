@@ -3,7 +3,8 @@
 namespace lum {
 	MenuState::MenuState(Engine& engine) :
 		GameState(engine),
-		m_chatbox(engine)
+		m_chatbox(engine),
+		m_board(engine)
 	{
 		serverip = "localhost";
 		serverport = 27015;
@@ -92,6 +93,7 @@ namespace lum {
 		window.draw(m_drawtest);
 		window.draw(m_debugtext);
 		m_chatbox.render(window);
+		m_board.render(window);
 	}
 	
 }
