@@ -9,37 +9,35 @@ namespace lum {
 		// how is this legal syntax?
 		for (int i = 0; i < 5; i++)
 			for (int j = 0; j < 5; j++)
-				m_nodes[i][j] = node_t(0);
+				m_nodes[i][j] = node_t(NIL);
 	
 		m_text.setFont(boost::get<sf::Font&>(engine.resmgr.getResource("anonymous")));
 		m_text.setString("");
 		m_text.setPosition(0, 0);
 		m_text.setCharacterSize(12);
 		
-		m_clicked = false;
 		m_blocked = false;
 		
 		engine.getemap()["increment"] = thor::Action(sf::Event::MouseButtonPressed);
 		engine.getsystem().connect("increment", [&](context_t context){
 			if (m_blocked) return;
-			if (context.event->mouseButton.button == sf::Mouse::Left)
+			
+			if (m_index.x > -1 && m_index.y > -1)
 			{
-				if (m_index.x > -1 && m_index.y > -1)
+				if (context.event->mouseButton.button == sf::Mouse::Left)
 				{
-					if (m_nodes[m_index.x][m_index.y].value < 3)
-						m_nodes[m_index.x][m_index.y].value++;
+					if (m_nodes[m_index.x][m_index.y].value < OUT)
+						m_nodes[m_index.x][m_index.y].value = static_cast<flag_e>(static_cast<int>(m_nodes[m_index.x][m_index.y].value) + 1);
 					else
-						m_nodes[m_index.x][m_index.y].value = 0;
+						m_nodes[m_index.x][m_index.y].value = NIL;
+					
 				}
-			}
-			if (context.event->mouseButton.button == sf::Mouse::Right)
-			{
-				if (m_index.x > -1 && m_index.y > -1)
+				if (context.event->mouseButton.button == sf::Mouse::Right)
 				{
-					if (m_nodes[m_index.x][m_index.y].value > 0)
-						m_nodes[m_index.x][m_index.y].value--;
+					if (m_nodes[m_index.x][m_index.y].value > NIL)
+						m_nodes[m_index.x][m_index.y].value = static_cast<flag_e>(static_cast<int>(m_nodes[m_index.x][m_index.y].value) - 1);
 					else
-						m_nodes[m_index.x][m_index.y].value = 3;
+						m_nodes[m_index.x][m_index.y].value = OUT;
 				}
 			}
 		});
@@ -95,24 +93,52 @@ namespace lum {
 				{
 					switch (m_nodes[i][j].value)
 					{
-						case 0:
+						case NIL:
 							drawrectangle(sf::Color(100, 100, 100), m_position.x+5+i*30, m_position.y+5+j*30, 25, 25, false, window);
 							break;
-						case 1:
+						case MOV:
 							drawrectangle(sf::Color(155, 100, 100), m_position.x+5+i*30, m_position.y+5+j*30, 25, 25, false, window);
 							break;
-						case 2:
+						case AND:
 							drawrectangle(sf::Color(100, 155, 100), m_position.x+5+i*30, m_position.y+5+j*30, 25, 25, false, window);
 							break;
-						case 3:
+						case OR:
 							drawrectangle(sf::Color(100, 100, 155), m_position.x+5+i*30, m_position.y+5+j*30, 25, 25, false, window);
+							break;
+						case IN:
+							drawrectangle(sf::Color(100, 155, 155), m_position.x+5+i*30, m_position.y+5+j*30, 25, 25, false, window);
+							break;
+						case OUT:
+							drawrectangle(sf::Color(155, 100, 155), m_position.x+5+i*30, m_position.y+5+j*30, 25, 25, false, window);
 							break;
 						default:
 							break;
 					}
 				}
 				
-				drawtext(std::to_string(m_nodes[i][j].value), m_position.x+13+i*30, m_position.y+8+j*30, window);
+				switch(m_nodes[i][j].value)
+				{
+					case NIL:
+						drawtext("NIL", m_position.x+15+i*30, m_position.y+8+j*30, true, window);
+						break;
+					case MOV:
+						drawtext("MOV", m_position.x+15+i*30, m_position.y+8+j*30, true, window);
+						break;
+					case AND:
+						drawtext("AND", m_position.x+15+i*30, m_position.y+8+j*30, true, window);
+						break;
+					case OR:
+						drawtext("OR", m_position.x+15+i*30, m_position.y+8+j*30, true, window);
+						break;
+					case IN:
+						drawtext("IN", m_position.x+15+i*30, m_position.y+8+j*30, true, window);
+						break;
+					case OUT:
+						drawtext("OUT", m_position.x+15+i*30, m_position.y+8+j*30, true, window);
+						break;
+					default:
+						break;
+				}
 			}
 		}
 	}
@@ -138,10 +164,14 @@ namespace lum {
 		window.draw(m_shape);
 	}
 	
-	void Board::drawtext(std::string text, float x, float y, sf::RenderWindow& window)
+	void Board::drawtext(std::string text, float x, float y, bool center, sf::RenderWindow& window)
 	{
 		m_text.setString(text);
-		m_text.setPosition(x, y);
+		int width = floor(m_text.findCharacterPos(text.size()-1).x - m_text.findCharacterPos(0).x);
+		if (center)
+			m_text.setPosition(x-width/2, y);
+		else
+			m_text.setPosition(x-width/2, y);
 		window.draw(m_text);
 	}
 }

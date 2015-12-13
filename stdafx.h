@@ -10,3 +10,10 @@
 #include <csetjmp>
 #include <SFML/Graphics.hpp>
 #include <Thor/Input.hpp>
+
+// own engine files
+#include "gamestate.hpp"
+#include "resourcemanager.hpp"
+#include "gameserver.hpp"
+#include "engine.hpp"
+#include "chatbox.hpp"
