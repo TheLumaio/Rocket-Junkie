@@ -71,6 +71,7 @@ namespace lum {
 		m_drawtest.setPosition(100+sin(0.3*m_timer)*100, 100);
 		
 		m_chatbox.update(dt);
+		m_board.update(dt, m_chatbox.isEnabled());
 		
 		if (!m_chatbox.tosend.empty())
 		{

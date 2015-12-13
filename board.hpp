@@ -18,6 +18,11 @@ namespace lum {
 		sf::RectangleShape m_shape;
 		sf::Text m_text;
 		sf::Vector2f m_position;
+		sf::Vector2i m_index;
+		sf::Vector2i m_mpos;
+		
+		bool m_clicked;
+		bool m_blocked;
 		
 		void drawrectangle(sf::Color, float, float, float, float, bool, sf::RenderWindow&);
 		void drawtext(std::string, float, float, sf::RenderWindow&);
@@ -27,7 +32,7 @@ namespace lum {
 		Board();
 		~Board();
 
-		void update(float);
+		void update(float, bool);
 		void render(sf::RenderWindow&);
 
 	};
