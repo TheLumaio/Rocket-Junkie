@@ -19,8 +19,8 @@ namespace lum {
 		m_clicked = false;
 		m_blocked = false;
 		
-		engine.getemap()["mouseclick"] = thor::Action(sf::Event::MouseButtonPressed);
-		engine.getsystem().connect("mouseclick", [&](context_t context){
+		engine.getemap()["increment"] = thor::Action(sf::Event::MouseButtonPressed);
+		engine.getsystem().connect("increment", [&](context_t context){
 			if (m_blocked) return;
 			if (context.event->mouseButton.button == sf::Mouse::Left)
 			{
@@ -30,6 +30,16 @@ namespace lum {
 						m_nodes[m_index.x][m_index.y].value++;
 					else
 						m_nodes[m_index.x][m_index.y].value = 0;
+				}
+			}
+			if (context.event->mouseButton.button == sf::Mouse::Right)
+			{
+				if (m_index.x > -1 && m_index.y > -1)
+				{
+					if (m_nodes[m_index.x][m_index.y].value > 0)
+						m_nodes[m_index.x][m_index.y].value--;
+					else
+						m_nodes[m_index.x][m_index.y].value = 3;
 				}
 			}
 		});
